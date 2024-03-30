@@ -17,6 +17,7 @@ function App() {
     useEffect(() => {
         console.log("I run when 'counter' changes,Search for", counter);
     }, [counter]);
+
     return (
         <div>
             <input value={keyword} onChange={onChange} type="text" placeholder="Search here..." />
