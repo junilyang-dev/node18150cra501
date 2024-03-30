@@ -15,9 +15,11 @@ function App() {
         console.log("I run when 'keyword' changes,Search for", keyword);
     }, [keyword]);
     useEffect(() => {
-        console.log("I run when 'counter' changes,Search for", counter);
+        console.log("I run when 'counter' changes,Count for", counter);
     }, [counter]);
-
+    useEffect(() => {
+        console.log("I run when 'keyword & counter' changes");
+    }, [keyword,counter]);
     return (
         <div>
             <input value={keyword} onChange={onChange} type="text" placeholder="Search here..." />
