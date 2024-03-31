@@ -2,7 +2,7 @@ import {useState} from "react";
 
 function App() {
     const [toDo, setToDo] = useState("");
-    const [toDos, setToDos] = useState("");
+    const [toDos, setToDos] = useState([]);
     const onChange = (e) => setToDo(e.target.value);
     const onSubmit = (e) => {
         e.preventDefault();
@@ -20,6 +20,12 @@ function App() {
                 <input value={toDo} onChange={onChange} type="text" placeholder="Write your to do..."/>
                 <button>Add To Do</button>
             </form>
+            <hr/>
+            <ul>
+                {toDos.map((item,index) => (
+                    <li key={index}>{item}</li>
+                ))}
+            </ul>
         </div>
     );
 }
