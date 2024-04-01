@@ -6,6 +6,7 @@ function App() {
     const [inputValue, setInputValue] = useState(0);
     const [getCoin, setGetCoin] = useState(0);
     const [selCoin, setSelCoin] = useState(0);
+    const [selCoinList, setSelCoinList] = useState([]);
     useEffect(() => {
         fetch("https://api.coinpaprika.com/v1/tickers")
             .then((response) => response.json())
@@ -13,6 +14,7 @@ function App() {
                 setCoins(json);
                 setLoading(false);
                 setSelCoin(json[0].quotes.USD.price);
+                setSelCoinList(json[0]);
             });
     }, []);
     const onChange = (event) => {
@@ -21,7 +23,7 @@ function App() {
     }
     const onChangeSelect = (event) => {
         setSelCoin(event.target.value);
-        console.log(event.target.value);
+        setSelCoinList(coins[event.target.selectedIndex]);
         calculateCoins(inputValue, event.target.value);
     }
     const calculateCoins = (amount, pricePerCoin) => {
@@ -43,7 +45,7 @@ function App() {
                     </select>
                     <hr/>
                     <input type="number" value={inputValue} onChange={onChange} placeholder="구매 가격을 입력하세요."/>
-                    <h1>{getCoin.toFixed(2)}</h1>
+                    <h1>구매 가능 코인: {getCoin != 0 ? selCoinList.name + "(" + selCoinList.symbol + ") "+getCoin + " 개" : '입력값을 확인해주세요.'}</h1>
                 </>
             )}
         </div>
