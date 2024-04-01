@@ -1,33 +1,53 @@
 import {useEffect, useState} from "react";
 
 function App() {
+    //로딩여부
     const [loading, setLoading] = useState(true);
+    //api를 통한 데이터 리스트
     const [coins, setCoins] = useState([]);
+    //input 입력 값
     const [inputValue, setInputValue] = useState(0);
+    //구매가능 코인 개수
     const [getCoin, setGetCoin] = useState(0);
+    //select 선택 값
     const [selCoin, setSelCoin] = useState(0);
+    //select로 선택한 coin리스트(1개)
     const [selCoinList, setSelCoinList] = useState([]);
+    //API를 통해 코인 리스트 가져오기
     useEffect(() => {
         fetch("https://api.coinpaprika.com/v1/tickers")
             .then((response) => response.json())
             .then((json) => {
+                //코인 리스트 전체 담기
                 setCoins(json);
+                //로딩 값 변경
                 setLoading(false);
+                //select 기본 값 부여
                 setSelCoin(json[0].quotes.USD.price);
+                //select로 선택한 coin리스트(1개) 기본 값 가져오기
                 setSelCoinList(json[0]);
             });
     }, []);
+    //input 입력 시 동작
     const onChange = (event) => {
+        //input 값 변경
         setInputValue(event.target.value);
+        //계산
         calculateCoins(event.target.value, selCoin);
     }
+    //select 변경 시 동작
     const onChangeSelect = (event) => {
+        //select 값 변경
         setSelCoin(event.target.value);
+        //select로 선택한 coin리스트(1개) 기본 값 가져오기
         setSelCoinList(coins[event.target.selectedIndex]);
+        //계산
         calculateCoins(inputValue, event.target.value);
     }
+    //계산
     const calculateCoins = (amount, pricePerCoin) => {
         const numCoins = amount / pricePerCoin;
+        //계산 결과
         setGetCoin(numCoins);
     };
     useEffect(() => {
