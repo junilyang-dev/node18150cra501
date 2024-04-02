@@ -3,14 +3,16 @@ import {useEffect, useState} from "react";
 function App() {
     const [loading, setLoading] = useState(true);
     const [movies,setMovies] = useState([]);
-    useEffect(() => {
-        fetch(
+    const getMpvies = async () => {
+        const response = await fetch(
             `https://yts.mx/api/v2/list_movies.json?minimum_rating=8.8&sort_by=year&language=ko-KR&page=1`
-        ).then((response)=> response.json())
-            .then((json)=> {
-                setMovies(json.data.movies);
-                setLoading(false);
-            });
+        );
+        const json = await response.json();
+        setMovies(json.data.movies);
+        setLoading(false);
+    }
+    useEffect(() => {
+        getMpvies();
     }, []);
     console.log(movies);
     return (
