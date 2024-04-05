@@ -1,8 +1,8 @@
 import {useParams} from "react-router-dom";
 
 function Detail() {
-    const x = useParams();
-    console.log(x);
+    const {id} = useParams();
+    console.log(id);
     return <h1>Detail</h1>
 }
 export default Detail;
