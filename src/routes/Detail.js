@@ -26,6 +26,7 @@ function Detail() {
                         <Link to={movies.url}>{movies.title}</Link>
                     </h2>
                     <h2>{movies.title_long}</h2>
+                    <p>{movies.description_full}</p>
                     <p>{movies.rating}</p>
                     <p>{movies.runtime}</p>
                     <p>{movies.like_count}</p>
